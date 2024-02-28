@@ -123,22 +123,28 @@ if (IS_GOV_CLOUD_DEPLOYMENT):
     embedding_model_version = AZURE_OPENAI_EMBEDDINGS_VERSION
 else:
     # Set up OpenAI management client
+    AZURE_SUBSCRIPTION_ID2 = "851deb7a-8088-47ca-983d-6e2ffacc52c1"
     openai_mgmt_client = CognitiveServicesManagementClient(
         credential=azure_credential,
-        subscription_id=AZURE_SUBSCRIPTION_ID)
+        subscription_id=AZURE_SUBSCRIPTION_ID2)
 
+    AZURE_OPENAI_RESOURCE_GROUP2 = 'cognitive_test_ct'
+    AZURE_OPENAI_SERVICE2 ='danijel-test02'
+    AZURE_OPENAI_CHATGPT_DEPLOYMENT2 = 'gpt-4'
     deployment = openai_mgmt_client.deployments.get(
-        resource_group_name=AZURE_OPENAI_RESOURCE_GROUP,
-        account_name=AZURE_OPENAI_SERVICE,
-        deployment_name=AZURE_OPENAI_CHATGPT_DEPLOYMENT)
+        resource_group_name=AZURE_OPENAI_RESOURCE_GROUP2,
+        account_name=AZURE_OPENAI_SERVICE2,
+        deployment_name=AZURE_OPENAI_CHATGPT_DEPLOYMENT2)
 
     model_name = deployment.properties.model.name
     model_version = deployment.properties.model.version
+    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    print(model_name, model_version)
 
     if USE_AZURE_OPENAI_EMBEDDINGS:
         embedding_deployment = openai_mgmt_client.deployments.get(
-            resource_group_name=AZURE_OPENAI_RESOURCE_GROUP,
-            account_name=AZURE_OPENAI_SERVICE,
+            resource_group_name=AZURE_OPENAI_RESOURCE_GROUP2,
+            account_name=AZURE_OPENAI_SERVICE2,
             deployment_name=EMBEDDING_DEPLOYMENT_NAME)
 
         embedding_model_name = embedding_deployment.properties.model.name
